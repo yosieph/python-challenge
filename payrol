@@ -1,0 +1,44 @@
+import csv
+
+# Initialize variables to store analysis results
+total_votes = 0
+candidates_votes = {}
+winner = {"name": "", "votes": 0}
+
+
+# Read and analyze the CSV file
+with open('election_data.csv', 'r') as csvfile:
+    csvreader = csv.reader(csvfile, delimiter=',')
+    print(csvreader)
+
+    next(csvreader)  # Skip the header row
+    
+    for row in csvreader:
+        # Extract data from the row
+        candidate = row[2]
+        
+        # Count the total number of votes
+        total_votes += 1
+        
+        # Count votes for each candidate
+        if candidate in candidates_votes:
+            candidates_votes[candidate] += 1
+        else:
+            candidates_votes[candidate] = 1
+        
+        # Check for winner
+        if candidates_votes[candidate] > winner["votes"]:
+            winner["name"] = candidate
+            winner["votes"] = candidates_votes[candidate]
+
+# Print the analysis results
+print("Election Results")
+print("-------------------------")
+print(f"Total Votes: {total_votes}")
+print("-------------------------")
+for candidate, votes in candidates_votes.items():
+    percentage = (votes / total_votes) * 100
+    print(f"{candidate}: {percentage:.3f}% ({votes})")
+print("-------------------------")
+print(f"Winner: {winner['name']}")
+print("-------------------------")
