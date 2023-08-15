@@ -1,0 +1,50 @@
+import csv
+
+# Initialize variables to store analysis results
+total_months = 0
+net_total = 0
+previous_profit_loss = 0
+change_list = []
+greatest_increase = {"date": "", "amount": 0}
+greatest_decrease = {"date": "", "amount": 0}
+
+# Read and analyze the CSV file
+with open('budget_data.csv', 'r') as csvfile:
+    csvreader = csv.reader(csvfile, delimiter=',')
+    next(csvreader)  # Skip the header row
+    
+    for row in csvreader:
+        # Extract data from the row
+        date = row[0]
+        profit_loss = int(row[1])
+
+        # Calculate total months and net total amount
+        total_months += 1
+        net_total += profit_loss
+        
+        # Calculate changes in profit/losses
+        if previous_profit_loss != 0:
+            change = profit_loss - previous_profit_loss
+            change_list.append(change)
+        
+        # Check for greatest increase and decrease
+        if change > greatest_increase["amount"]:
+            greatest_increase["date"] = date
+            greatest_increase["amount"] = change
+        elif change < greatest_decrease["amount"]:
+            greatest_decrease["date"] = date
+            greatest_decrease["amount"] = change
+        
+        # Update previous profit/loss
+        previous_profit_loss = profit_loss
+
+# Calculate the average change
+average_change = sum(change_list) / len(change_list)
+
+# Print the analysis results
+print("Financial Analysis")
+print("-----------------------------")
+print(f"Total Months: {total_months}")
+print(f"Total: ${net_total}")
+print(f"Average Change: ${average_change:.2f}")
+print(f"Greatest Increase in Profits: {greatest_increase['date']} (${greatest_increase['amount']})")
