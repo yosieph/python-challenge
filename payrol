@@ -7,7 +7,7 @@ winner = {"name": "", "votes": 0}
 
 
 # Read and analyze the CSV file
-with open('election_data.csv', 'r') as csvfile:
+with open('pyPoll/Resources/election_data.csv', 'r') as csvfile:
     csvreader = csv.reader(csvfile, delimiter=',')
     print(csvreader)
 

@@ -4,12 +4,13 @@ import csv
 total_months = 0
 net_total = 0
 previous_profit_loss = 0
+change=0
 change_list = []
 greatest_increase = {"date": "", "amount": 0}
 greatest_decrease = {"date": "", "amount": 0}
 
 # Read and analyze the CSV file
-with open('budget_data.csv', 'r') as csvfile:
+with open('PyBank/Resources/budget_data.csv', 'r') as csvfile:
     csvreader = csv.reader(csvfile, delimiter=',')
     next(csvreader)  # Skip the header row
     
@@ -48,3 +49,18 @@ print(f"Total Months: {total_months}")
 print(f"Total: ${net_total}")
 print(f"Average Change: ${average_change:.2f}")
 print(f"Greatest Increase in Profits: {greatest_increase['date']} (${greatest_increase['amount']})")
+print(f"Greatest Decrease in Profits: {greatest_decrease['date']} (${greatest_decrease['amount']})")
+
+output= f"""
+Financial Analysis
+----------------------------
+Total Months: {total_months}
+Total: {net_total}
+Average Change: {average_change}
+Greatest Increase in Profits: {greatest_increase['date']} (${greatest_increase['amount']})
+Greatest Decrease in Profits: {greatest_decrease['date']} (${greatest_decrease['amount']})
+"""
+print(output)
+
+with open("pybank_analysis.txt", "w") as txt_file:
+    txt_file.write(output)
