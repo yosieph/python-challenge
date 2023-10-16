@@ -30,6 +30,7 @@ with open('pyPoll/Resources/election_data.csv', 'r') as csvfile:
         if candidates_votes[candidate] > winner["votes"]:
             winner["name"] = candidate
             winner["votes"] = candidates_votes[candidate]
+            
 
 # Print the analysis results
 print("Election Results")
